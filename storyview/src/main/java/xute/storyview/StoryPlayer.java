@@ -1,13 +1,12 @@
 package xute.storyview;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,21 +59,19 @@ public class StoryPlayer extends AppCompatActivity implements StoryPlayerProgres
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setTouchListener() {
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    //pause
-                    storyPlayerProgressView.pauseProgress();
-                    return true;
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    //resume
-                    storyPlayerProgressView.resumeProgress();
-                    return true;
-                }else {
-                    return false;
-                }
+        imageView.setOnTouchListener((view, motionEvent) -> {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                //pause
+                storyPlayerProgressView.pauseProgress();
+                return true;
+            } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                //resume
+                storyPlayerProgressView.resumeProgress();
+                return true;
+            }else {
+                return false;
             }
         });
     }
